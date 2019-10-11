@@ -1,0 +1,22 @@
+<?php
+
+class Page
+{
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = new Database();
+    }
+
+    public function getProduct()
+    {
+        $this->db->query('SELECT * FROM products');
+        $row = $this->db->resultSet();
+        if ($row) {
+            return $row;
+        } else {
+            return false;
+        }
+    }
+}
