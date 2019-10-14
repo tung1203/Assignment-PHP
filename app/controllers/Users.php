@@ -5,11 +5,12 @@ class Users extends Controller
     public function __construct()
     {
         $this->userModel = $this->model('User');
+
     }
 
     public function index()
     {
-
+        $this->view('users/login');
     }
 
     public function login()
@@ -96,7 +97,7 @@ class Users extends Controller
             if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter email';
             } else {
-                if ($this->adminModel->getUserByEmail($data['email'])) {
+                if ($this->userModel->getUserByEmail($data['email'])) {
                     $data['email_err'] = 'This email already exists in the database.';
                 }
             }
@@ -129,11 +130,11 @@ class Users extends Controller
                 // hash password
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
                 // insert user to database
-                if ($this->adminModel->addUser($data)) {
-                    flash('user_message', 'Add user success');
-                    redirect('admins');
+                if ($this->userModel->addUser($data)) {
+                    flash('user_message', 'Register success');
+                    redirect('users/login');
                 } else {
-                    die('Something wrong');
+                    $this->view('404', $data);
                 }
             } else {
                 $this->view('users/register', $data);

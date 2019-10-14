@@ -29,8 +29,34 @@ class Admin
         $sql = "SELECT userid, first_name, last_name, email, ";
         $sql .= "DATE_FORMAT(registration_date, '%M %d, %Y')";
         $sql .= " AS regdat FROM users WHERE user_level != 1 and status = 1 ORDER BY registration_date ASC";
-//        $sql .= " LIMIT ?, ?";
         $this->db->query($sql);
+        return $this->db->resultSet();
+    }
+
+    public function getUsersLimit($start_from, $limitPerPage)
+    {
+        $sql = "SELECT userid, first_name, last_name, email, ";
+        $sql .= "DATE_FORMAT(registration_date, '%M %d, %Y')";
+        $sql .= " AS regdat FROM users WHERE user_level != 1 and status = 1 ORDER BY registration_date ASC";
+        $sql .= " LIMIT :start, :limitPerPage";
+        $this->db->query($sql);
+        $this->db->bind(':start', $start_from);
+        $this->db->bind(':limitPerPage', $limitPerPage);
+        return $this->db->resultSet();
+    }
+
+    public function getProducts()
+    {
+        $this->db->query('SELECT * FROM products WHERE status = 1');
+        return $this->db->resultSet();
+    }
+
+    public function getProductsLimit($start_from, $limitPerPage)
+    {
+
+        $this->db->query('SELECT * FROM products WHERE status = 1 LIMIT :start, :limitPerPage ');
+        $this->db->bind(':start', $start_from);
+        $this->db->bind(':limitPerPage', $limitPerPage);
         return $this->db->resultSet();
     }
 
@@ -49,6 +75,13 @@ class Admin
     public function getUserById($id)
     {
         $this->db->query('SELECT * FROM users where userid = :id');
+        $this->db->bind(':id', $id);
+        return $this->db->single();
+    }
+
+    public function getProductById($id)
+    {
+        $this->db->query('SELECT * FROM products where productId = :id');
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
@@ -91,6 +124,28 @@ class Admin
         }
     }
 
+    public function editProduct($data)
+    {
+//        echo '<pre>',
+//        var_dump($data),
+//        '</pre>';
+//
+//                die('1');
+        $sql = "UPDATE products SET productName = :productName,productImage = :productImage, price = :price  WHERE productId = :productId";
+        $this->db->query($sql);
+        $this->db->bind(':productName', $data['productName']);
+        $this->db->bind(':productImage', $data['productImage']);
+        $this->db->bind(':price', $data['price']);
+        $this->db->bind(':productId', $data['productId']);
+        // Execute
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function deleteUser($idUser)
     {
 
@@ -98,6 +153,21 @@ class Admin
         $this->db->query($sql);
         $this->db->bind(':status', '0');
         $this->db->bind(':userId', $idUser);
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteProduct($idProduct)
+    {
+
+        $sql = "UPDATE products SET status = :status WHERE productId = :productId";
+        $this->db->query($sql);
+        $this->db->bind(':status', '0');
+        $this->db->bind(':productId', $idProduct);
         // Execute
         if ($this->db->execute()) {
             return true;

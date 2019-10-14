@@ -13,18 +13,30 @@ class Core
 
     public function __construct()
     {
+
         $url = $this->getUrl();
 
-        if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
-            $this->currentController = ucwords($url[0]);
-            unset($url[0]);
+        if (isset($url[0]) && !is_numeric($url[0])) {
+            if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
+                $this->currentController = ucwords($url[0]);
+                unset($url[0]);
+            } else {
+                die('404 Xin lỗi, trang bạn đang tìm kiếm không tồn tại!');
+            }
         }
         require_once '../app/controllers/' . $this->currentController . '.php';
         $this->currentController = new $this->currentController;
+
         if (isset($url[1])) {
+
             if (method_exists($this->currentController, $url[1])) {
                 $this->currentMethod = $url[1];
                 unset($url[1]);
+            } else {
+
+                http_response_code(404);
+                die();
+
             }
         }
         $this->params = $url ? array_values($url) : [];

@@ -95,11 +95,11 @@
                              <?php endif; ?>
 
                         </span>
-<!--                        --><?php //if (!isset($_SESSION['user_id'])): ?>
+                        <!--                        --><?php //if (!isset($_SESSION['user_id'])): ?>
 <!--                            <h3 class="text-center"><a href="--><?php //echo URLROOT; ?><!--/users/login">Login</a></h3>-->
-<!--                        --><?php //else: ?>
+                        <!--                        --><?php //else: ?>
 <!--                            <h3 class="text-center"><a href="--><?php //echo URLROOT; ?><!--/users/logout">Logout</a></h3>-->
-<!--                        --><?php //endif; ?>
+                        <!--                        --><?php //endif; ?>
                     </span>
                     <a href="" class="header__cart-btn">
                         <i class="tikicon icon-cart"></i>
@@ -174,29 +174,29 @@
                         <div class="panel__category">
                             <div class="panel__category-list">
                                 <div class="panel__category-item panel__category-title">
-                                    <a href="">Điện Thoại - Máy Tính Bảng</a>
+                                    <a href="">Máy Ảnh - Máy Quay Phim</a>
                                 </div>
                                 <div class="panel__category-item panel__category-child">
                                     <a href="">
-                                        Điện thoại Smartphone
+                                        Máy ảnh
                                         <span>(570)</span>
                                     </a>
                                 </div>
                                 <div class="panel__category-item panel__category-child">
                                     <a href="">
-                                        Điện thoại Smartphone
+                                        Phụ kiện máy ảnh, máy quay
                                         <span>(570)</span>
                                     </a>
                                 </div>
                                 <div class="panel__category-item panel__category-child">
                                     <a href="">
-                                        Điện thoại Smartphone
+                                        Balo - Túi đựng - Bao da
                                         <span>(570)</span>
                                     </a>
                                 </div>
                                 <div class="panel__category-item panel__category-child">
                                     <a href="">
-                                        Điện thoại Smartphone
+                                        Ống kính (Lens)
                                         <span>(570)</span>
                                     </a>
                                 </div>
@@ -211,28 +211,17 @@
                             <div class="panel__category-list">
                                 <div class="panel__category-item panel__category-child">
                                     <a href="">
-                                        Điện thoại Smartphone
+                                        Trong nước
                                         <span>(570)</span>
                                     </a>
                                 </div>
                                 <div class="panel__category-item panel__category-child">
                                     <a href="">
-                                        Điện thoại Smartphone
+                                        Nước ngoài
                                         <span>(570)</span>
                                     </a>
                                 </div>
-                                <div class="panel__category-item panel__category-child">
-                                    <a href="">
-                                        Điện thoại Smartphone
-                                        <span>(570)</span>
-                                    </a>
-                                </div>
-                                <div class="panel__category-item panel__category-child">
-                                    <a href="">
-                                        Điện thoại Smartphone
-                                        <span>(570)</span>
-                                    </a>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -279,114 +268,135 @@
                 <div class="products__wrap">
 
 
-<!--                    <div class="product">-->
-<!--                        <a href="">-->
-<!--                            <div class="product__image">-->
-<!--                                <img src="img/dt1.jpg" alt="">-->
-<!--                            </div>-->
-<!--                            <div class="product__option">-->
-<!--                                <ul>-->
-<!--                                    <li class="active">-->
-<!--                                        <img src="img/dt1small.jpg" alt="">-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        <img src="img/dt1small1.jpg" alt="">-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                            <div class="product__title">-->
-<!--                                <i class="icon icon-tikinow"></i>-->
-<!--                                Điện Thoại Xiaomi Redmi Note 7 (3GB/32GB) - Điện Thoại Xiaomi Redmi Note 7 (3GB/32GB) - Điện Thoại Xiaomi Redmi Note 7 (3GB/32GB) --->
-<!--                            </div>-->
-<!--                            <span class="product__sale">-->
-<!--                                                    <span class="product__sale-final">-->
-<!--                                                        3.590.000 ₫-->
-<!--                                                        <span class="product__sale-percent">-->
-<!--                                                            -10%-->
-<!--                                                        </span>-->
-<!--                                                    </span>-->
-<!--                                                    <span class="product__sale-regular">3.990.000 ₫</span>-->
-<!--                                                </span>-->
-<!--                            <div class="product__installment">-->
-<!--                                Trả góp 0% chỉ 299.167 ₫/tháng-->
-<!--                            </div>-->
-<!--                            <div class="product__review">-->
-<!--                                <div class="product__review-start">-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <span class="product__review-start-y">-->
-<!--                                                            <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                                        <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                                        <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                                        <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                                        <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                                        </span>-->
-<!--                                </div>-->
-<!--                                <div class="product__review-text">(252 nhận xét)</div>-->
-<!--                            </div>-->
-<!--                        </a>-->
-<!--                    </div>-->
+                    <!--                    <div class="product">-->
+                    <!--                        <a href="">-->
+                    <!--                            <div class="product__image">-->
+                    <!--                                <img src="img/dt1.jpg" alt="">-->
+                    <!--                            </div>-->
+                    <!--                            <div class="product__option">-->
+                    <!--                                <ul>-->
+                    <!--                                    <li class="active">-->
+                    <!--                                        <img src="img/dt1small.jpg" alt="">-->
+                    <!--                                    </li>-->
+                    <!--                                    <li>-->
+                    <!--                                        <img src="img/dt1small1.jpg" alt="">-->
+                    <!--                                    </li>-->
+                    <!--                                </ul>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="product__title">-->
+                    <!--                                <i class="icon icon-tikinow"></i>-->
+                    <!--                                Điện Thoại Xiaomi Redmi Note 7 (3GB/32GB) - Điện Thoại Xiaomi Redmi Note 7 (3GB/32GB) - Điện Thoại Xiaomi Redmi Note 7 (3GB/32GB) --->
+                    <!--                            </div>-->
+                    <!--                            <span class="product__sale">-->
+                    <!--                                                    <span class="product__sale-final">-->
+                    <!--                                                        3.590.000 ₫-->
+                    <!--                                                        <span class="product__sale-percent">-->
+                    <!--                                                            -10%-->
+                    <!--                                                        </span>-->
+                    <!--                                                    </span>-->
+                    <!--                                                    <span class="product__sale-regular">3.990.000 ₫</span>-->
+                    <!--                                                </span>-->
+                    <!--                            <div class="product__installment">-->
+                    <!--                                Trả góp 0% chỉ 299.167 ₫/tháng-->
+                    <!--                            </div>-->
+                    <!--                            <div class="product__review">-->
+                    <!--                                <div class="product__review-start">-->
+                    <!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
+                    <!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
+                    <!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
+                    <!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
+                    <!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
+                    <!--                                    <span class="product__review-start-y">-->
+                    <!--                                                            <i class="fa fa-star" aria-hidden="true"></i>-->
+                    <!--                                                        <i class="fa fa-star" aria-hidden="true"></i>-->
+                    <!--                                                        <i class="fa fa-star" aria-hidden="true"></i>-->
+                    <!--                                                        <i class="fa fa-star" aria-hidden="true"></i>-->
+                    <!--                                                        <i class="fa fa-star" aria-hidden="true"></i>-->
+                    <!--                                                        </span>-->
+                    <!--                                </div>-->
+                    <!--                                <div class="product__review-text">(252 nhận xét)</div>-->
+                    <!--                            </div>-->
+                    <!--                        </a>-->
+                    <!--                    </div>-->
+
                     <?php foreach ($data['products'] as $product): ?>
-                    <div class="product">
-                        <a href="">
-                            <div class="product__image">
-                                <img src="<?php echo $product->productimage?>" alt="">
-                            </div>
-                            <div class="product__option">
-                                <ul>
-                                    <li class="active">
-                                        <img src="img/dt1small.jpg" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="img/dt1small1.jpg" alt="">
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="product__title">
-                                <i class="icon icon-tikinow"></i>
-                                <?php echo $product->productname?>
-                            </div>
-                            <span class="product__sale">
+                        <div class="product">
+                            <a href="">
+                                <div class="product__image">
+                                    <img src="<?php echo $product->productimage ?>" alt="">
+                                </div>
+                                <div class="product__option">
+                                    <ul>
+                                        <li class="active">
+                                            <img src="img/dt1small.jpg" alt="">
+                                        </li>
+                                        <li>
+                                            <img src="img/dt1small1.jpg" alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="product__title">
+                                    <i class="icon icon-tikinow"></i>
+                                    <?php echo $product->productname ?>
+                                </div>
+                                <span class="product__sale">
                                                     <span class="product__sale-final">
-                                                        <?php echo $product->price?>
+                                                        <?php echo number_format($product->price); ?>
                                                         <span class="product__sale-percent">
                                                             -10%
                                                         </span>
                                                     </span>
                                                     <span class="product__sale-regular">3.990.000 ₫</span>
                                                 </span>
-                            <div class="product__installment">
-                                Trả góp 0% chỉ 299.167 ₫/tháng
-                            </div>
-                            <div class="product__review">
-                                <div class="product__review-start">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <span class="product__review-start-y">
+                                <div class="product__installment">
+                                    Trả góp 0% chỉ 299.167 ₫/tháng
+                                </div>
+                                <div class="product__review">
+                                    <div class="product__review-start">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <span class="product__review-start-y">
                                                             <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         </span>
+                                    </div>
+                                    <div class="product__review-text">(252 nhận xét)</div>
                                 </div>
-                                <div class="product__review-text">(252 nhận xét)</div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
                     <?php endforeach; ?>
-                    <!--                    --><?php //include("process-product.php"); ?>
                 </div>
 
                 <div class="pagination">
                     <ul>
-                        <?php include("process-pagination.php") ?>
+                        <?php if ($data['currentPage'] != 1) : ?>
+                            <li>
+                                <a href="<?php echo URLROOT; ?>/<?php echo $data['currentPage'] - 1; ?>" class="prev">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php for ($i = 1; $i <= $data['totalPages']; $i++): ?>
+                            <li>
+                                <a href="<?php echo URLROOT; ?>/<?php echo $i; ?>"
+                                   class="normal <?php echo ($data['currentPage'] == $i) ? 'active' : ''; ?>">
+                                    <?php echo $i; ?>
+                                </a>
+                            </li>
+                        <?php endfor; ?>
+                        <?php if ($data['currentPage'] != $data['totalPages']) : ?>
+                            <li>
+                                <a href="<?php echo URLROOT; ?>/<?php echo $data['currentPage'] + 1; ?>" class="next">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>

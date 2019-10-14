@@ -11,15 +11,92 @@ class Admins extends Controller
 
     public function index()
     {
+
+
+        // Get all users
         $users = $this->adminModel->getUsers();
+        $totalUsers = count($users);
+        // Get all products
+        $products = $this->adminModel->getProducts();
+        $totalProducts = count($products);
+        // Total Pages
+
+
         $data = [
             'first_name' => $_SESSION['admin_name'],
-            'users' => $users
+            'totalUsers' => $totalUsers,
+            'totalProducts' => $totalProducts
         ];
+
+
         if (!adminIsLoggedIn()) {
             redirect('admins/login');
         }
         return $this->view('admins/index', $data);
+    }
+
+    public function users($page = 1)
+    {
+
+        $limitPerPage = 3;
+        $start_from = ($page - 1) * $limitPerPage;
+
+        $usersLimit = $this->adminModel->getUsersLimit($start_from, $limitPerPage);
+        // Get all users
+        $users = $this->adminModel->getUsers();
+        $totalUsers = count($users);
+        // Total Pages
+        $totalPages = ceil($totalUsers / $limitPerPage);
+
+        if ($page < 1 || $page > $totalPages) {
+            return $this->view('404');
+        }
+
+        $data = [
+            'first_name' => $_SESSION['admin_name'],
+            'users' => $usersLimit,
+            'totalPages' => $totalPages,
+            'currentPage' => $page,
+            'currentController' => 'users'
+        ];
+
+
+        if (!adminIsLoggedIn()) {
+            redirect('admins/login');
+        }
+        return $this->view('admins/users', $data);
+    }
+
+    public function products($page = 1)
+    {
+
+        $limitPerPage = 4;
+        $start_from = ($page - 1) * $limitPerPage;
+
+        $productsLimit = $this->adminModel->getProductsLimit($start_from, $limitPerPage);
+        // Get all users
+        $products = $this->adminModel->getProducts();
+        $totalProducts = count($products);
+        // Total Pages
+        $totalPages = ceil($totalProducts / $limitPerPage);
+
+        if ($page < 1 || $page > $totalPages) {
+            return $this->view('404');
+        }
+
+        $data = [
+            'first_name' => $_SESSION['admin_name'],
+            'products' => $productsLimit,
+            'totalPages' => $totalPages,
+            'currentPage' => $page,
+            'currentController' => 'products'
+        ];
+
+
+        if (!adminIsLoggedIn()) {
+            redirect('admins/login');
+        }
+        return $this->view('admins/products', $data);
     }
 
     public function login()
@@ -114,6 +191,7 @@ class Admins extends Controller
                 'password_err' => '',
                 'rePassword_err' => '',
                 'privilege_err' => '',
+                'currentController' => 'users'
             ];
 
             // Validate email
@@ -159,7 +237,7 @@ class Admins extends Controller
                 // insert user to database
                 if ($this->adminModel->addUser($data)) {
                     flash('user_message', 'Add user success');
-                    redirect('admins');
+                    redirect('admins/users');
                 } else {
                     die('Something wrong');
                 }
@@ -181,6 +259,7 @@ class Admins extends Controller
                 'password_err' => '',
                 'rePassword_err' => '',
                 'privilege_err' => '',
+                'currentController' => 'users'
 
             ];
             return $this->view('admins/addUser', $data);
@@ -245,8 +324,8 @@ class Admins extends Controller
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
                 // insert user to database
                 if ($this->adminModel->editUser($data)) {
-                    flash('user_message', 'Add user success');
-                    redirect('admins');
+                    flash('user_message', 'Edit user success');
+                    redirect('admins/users');
                 } else {
                     die('Something wrong');
                 }
@@ -269,6 +348,7 @@ class Admins extends Controller
                 'password_err' => '',
                 'rePassword_err' => '',
                 'privilege_err' => '',
+                'currentController' => 'users'
 
             ];
             return $this->view('admins/edituser', $data);
@@ -280,12 +360,12 @@ class Admins extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->adminModel->deleteUser($idUser)) {
                 flash('user_message', 'User deleted');
-                redirect('admins');
+                redirect('admins/users');
             } else {
                 die('Something went wrong');
             }
         } else {
-            redirect('admins');
+            redirect('admins/users');
         }
     }
 
@@ -303,12 +383,49 @@ class Admins extends Controller
                 'image' => trim($_FILES['productImage']['name']),
                 'productName_err' => '',
                 'price_err' => '',
-                'image_err' => ''
+                'image_err' => '',
+                'currentController' => 'products'
             ];
 
             // Validate product name
             if (empty($data['productName'])) {
                 $data['productName_err'] = 'Please enter product name';
+            }
+            // Validate image
+            if (empty($data['image'])) {
+                $data['image_err'] = 'Please upload image';
+            } else {
+                // Validate image upload\
+
+
+                $target_dir = "img/products/";
+                $target_file = $target_dir . basename($_FILES['productImage']['name']);
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+                $newName = $data['productName'] . '.' . $imageFileType; //create new name for image
+                $newName = htmlspecialchars($newName);
+                $newName = str_replace(" ", "-", $newName);
+                $newName = str_replace("/", "-", $newName);
+
+                $newTarget_dir = $target_dir . $newName; //create new target_dir for image
+                $data['image'] = "img/products/" . $newName;
+                if (file_exists($target_dir . $newName)) {
+                    $data['image_err'] = "Sorry, file already exists.";
+                }
+                $typeAccept = ["png", "jpg", "jpeg"];
+                $check = getimagesize($_FILES['productImage']['tmp_name']);
+                if (!$check) {
+                    $data['image_err'] = "File is not an image.";
+                }
+                if ($_FILES['productImage']['size'] > 10000000) { // 100Mb
+                    $data['image_err'] = "Sorry, your file is too large.";
+                }
+                if (!in_array($imageFileType, $typeAccept)) {
+                    $data['image_err'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                }
+//             End Validate image upload
+
             }
             // Validate price
             if (empty($data['price'])) {
@@ -316,36 +433,6 @@ class Admins extends Controller
             } else {
                 $data['price'] = str_replace(",", "", $data['price']);
             }
-            // Validate image upload\
-
-
-            $target_dir = "img/products/";
-            $target_file = $target_dir . basename($_FILES['productImage']['name']);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-            $newName = $data['productName'] . '.' . $imageFileType; //create new name for image
-            $newName = htmlspecialchars($newName);
-            $newName = str_replace(" ", "-", $newName);
-            $newName = str_replace("/", "-", $newName);
-
-            $newTarget_dir = $target_dir . $newName; //create new target_dir for image
-            $data['image'] = "img/products/" . $newName;
-            if (file_exists($target_dir . $newName)) {
-                $data['image_err'] = "Sorry, file already exists.";
-            }
-            $typeAccept = ["png", "jpg", "jpeg"];
-            $check = getimagesize($_FILES['productImage']['tmp_name']);
-            if (!$check) {
-                $data['image_err'] = "File is not an image.";
-            }
-            if ($_FILES['productImage']['size'] > 10000000) { // 100Mb
-                $data['image_err'] = "Sorry, your file is too large.";
-            }
-            if (!in_array($imageFileType, $typeAccept)) {
-                $data['image_err'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            }
-//             End Validate image upload
 
 
             if (empty($data['productName_err']) && empty($data['price_err']) && empty($data['image_err'])) {
@@ -354,7 +441,7 @@ class Admins extends Controller
                 if (move_uploaded_file($_FILES['productImage']['tmp_name'], $newTarget_dir)) {
                     if ($this->adminModel->addProduct($data)) {
                         flash('user_message', 'Add product success');
-                        redirect('admins');
+                        redirect('admins/products');
                     } else {
                         die('Something wrong');
                     }
@@ -374,12 +461,137 @@ class Admins extends Controller
                 'price' => '',
                 'productName_err' => '',
                 'image_err' => '',
-                'price_err' => ''
+                'price_err' => '',
+                'currentController' => 'products'
 
             ];
             return $this->view('admins/addProduct', $data);
         }
 
+    }
+
+    public function editproduct($idProduct)
+    {
+        echo '<pre>',
+        var_dump($_FILES['productImage']),
+        '</pre>';
+        if (!adminIsLoggedIn()) {
+            redirect('admins/login');
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'productId' => $idProduct,
+                'productName' => trim($_POST['productName']),
+                'productImage' => trim($_FILES['productImage']['name']),
+                'price' => trim($_POST['productPrice']),
+                'productName_err' => '',
+                'newImage_err' => '',
+                'price_err' => '',
+                'currentController' => 'products'
+            ];
+
+
+            // Validate first name
+            if (empty($data['productName'])) {
+                $data['productName_err'] = 'Please enter product name';
+            }
+            // Validate Last name
+            if (empty($data['price'])) {
+                $data['price_err'] = 'Please enter price';
+            } else {
+                $data['price'] = str_replace(",", "", $data['price']);
+            }
+            // Validate image
+            if (empty($data['productImage'])) {
+                $data['productImage'] = $_POST['oldImage'];
+            } else {
+                // Validate image upload\
+
+
+                $target_dir = "img/products/";
+                $target_file = $target_dir . basename($_FILES['productImage']['name']);
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+                $newName = $data['productName'] . '.' . $imageFileType; //create new name for image
+                $newName = htmlspecialchars($newName);
+                $newName = str_replace(" ", "-", $newName);
+                $newName = str_replace("/", "-", $newName);
+
+                $newTarget_dir = $target_dir . $newName; //create new target_dir for image
+                $data['productImage'] = "img/products/" . $newName;
+                if (file_exists($target_dir . $newName)) {
+                    echo(unlink($target_dir . $newName) ? "File Deleted" : "Problem deleting file");
+//                    $data['image_err'] = "Sorry, file already exists.";
+                }
+                $typeAccept = ["png", "jpg", "jpeg"];
+                $check = getimagesize($_FILES['productImage']['tmp_name']);
+                if (!$check) {
+                    $data['image_err'] = "File is not an image.";
+                }
+                if ($_FILES['productImage']['size'] > 10000000) { // 100Mb
+                    $data['image_err'] = "Sorry, your file is too large.";
+                }
+                if (!in_array($imageFileType, $typeAccept)) {
+                    $data['image_err'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                }
+//             End Validate image upload
+
+            }
+
+            if (empty($data['productName_err']) && empty($data['price_err']) && empty($data['image_err'])) {
+
+
+                // Validated
+                // insert product to database
+                if (move_uploaded_file($_FILES['productImage']['tmp_name'], $newTarget_dir)) {
+                    if ($this->adminModel->editProduct($data)) {
+                        flash('user_message', 'Edit product success');
+                        redirect('admins/products');
+                    } else {
+                        die('Something wrong');
+                    }
+                } else {
+                    die('File cann not  upload');
+                }
+
+            } else {
+                $this->view('admins/editproduct', $data);
+            }
+
+        } else {
+            $product = $this->adminModel->getProductById($idProduct);
+
+            $data = [
+                'productId' => $idProduct,
+                'productName' => $product->productname,
+                'img' => $product->productimage,
+                'newImage' => '',
+                'price' => $product->price,
+                'productName_err' => '',
+                'newImage_err' => '',
+                'price_err' => '',
+                'currentController' => 'products'
+            ];
+
+            return $this->view('admins/editProduct', $data);
+        }
+    }
+
+    public function deleteproduct($idProduct)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->adminModel->deleteProduct($idProduct)) {
+                flash('user_message', 'Product deleted');
+                redirect('admins/products');
+            } else {
+                die('Something went wrong');
+            }
+        } else {
+            redirect('admins/products');
+        }
     }
 
 }
