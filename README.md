@@ -1,4 +1,6 @@
 # Assignment-PHP
-link admin : yoururl/admins
-account: admin@gmail.com
-password: 123456
+Link admin : yourUrl/admins
+
+Account: admin@gmail.com
+
+Password: 123456
