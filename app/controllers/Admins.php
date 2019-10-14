@@ -472,9 +472,7 @@ class Admins extends Controller
 
     public function editproduct($idProduct)
     {
-        echo '<pre>',
-        var_dump($_FILES['productImage']),
-        '</pre>';
+
         if (!adminIsLoggedIn()) {
             redirect('admins/login');
         }
@@ -523,7 +521,7 @@ class Admins extends Controller
                 $newTarget_dir = $target_dir . $newName; //create new target_dir for image
                 $data['productImage'] = "img/products/" . $newName;
                 if (file_exists($target_dir . $newName)) {
-                    echo(unlink($target_dir . $newName) ? "File Deleted" : "Problem deleting file");
+                    unlink($target_dir . $newName);
 //                    $data['image_err'] = "Sorry, file already exists.";
                 }
                 $typeAccept = ["png", "jpg", "jpeg"];
@@ -554,7 +552,7 @@ class Admins extends Controller
                         die('Something wrong');
                     }
                 } else {
-                    die('File cann not  upload');
+                    die('File can not upload');
                 }
 
             } else {
