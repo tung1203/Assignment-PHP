@@ -18,6 +18,11 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="<?php echo URLROOT; ?>">
+            <i class="fas fa-globe-asia"></i>
+            <span>My website</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -32,7 +37,7 @@
         <a class="nav-link collapsed <?php echo ($data['currentController'] == 'users') ? 'active' : ''; ?>"
            href="<?php echo URLROOT; ?>/admins/users" data-target="#collapseTwo" aria-expanded="true"
            aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-users"></i>
             <span>Users</span>
         </a>
         <!--            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->

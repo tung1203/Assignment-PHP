@@ -9,7 +9,8 @@ class Pages extends Controller
 
     public function index($page = 1)
     {
-        if(!is_numeric($page)){
+
+        if (!is_numeric($page)) {
             return $this->view('404');
         }
         $limitPerPage = 20;

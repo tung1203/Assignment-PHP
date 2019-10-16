@@ -1373,7 +1373,7 @@ header a {
 
 .panel__wrap {
     background: #ffffff;
-    min-height: 100%;
+    min-height: 98.1%;
 }
 
 .panel:nth-child(n+2) {
@@ -1511,7 +1511,8 @@ header a {
 
 .product__image img {
     width: 100%;
-    height: auto;
+    max-height: 200px;
+    object-fit: cover;
 }
 
 .product__option {
@@ -1652,8 +1653,8 @@ header a {
     cursor: pointer;
 }
 
-.pagination ul li a.next {
-
+.pagination ul li a.next .fa-angle-right{
+    line-height: 25px;
 }
 
 .pagination ul li a {
@@ -1937,4 +1938,7 @@ footer {
 }
 .bg-login-image.user{
     background: url('https://source.unsplash.com/_3Q3tsJ01nc/500x800');
+}
+#deleteModdel.active{
+
 }

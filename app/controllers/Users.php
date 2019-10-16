@@ -26,6 +26,9 @@ class Users extends Controller
                 'pass_err' => ''
             ];
             // Validate email
+            if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                $data['email_err'] = 'Email doesn\'t valid';
+            }
             if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter your email';
             }
@@ -94,6 +97,9 @@ class Users extends Controller
             ];
 
             // Validate email
+            if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                $data['email_err'] = 'Email doesn\'t valid';
+            }
             if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter email';
             } else {

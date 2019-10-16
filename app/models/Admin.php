@@ -28,7 +28,7 @@ class Admin
     {
         $sql = "SELECT userid, first_name, last_name, email, ";
         $sql .= "DATE_FORMAT(registration_date, '%M %d, %Y')";
-        $sql .= " AS regdat FROM users WHERE user_level != 1 and status = 1 ORDER BY registration_date ASC";
+        $sql .= " AS regdat FROM users WHERE user_level != 1 and status = 1 ORDER BY registration_date DESC";
         $this->db->query($sql);
         return $this->db->resultSet();
     }
@@ -37,7 +37,7 @@ class Admin
     {
         $sql = "SELECT userid, first_name, last_name, email, ";
         $sql .= "DATE_FORMAT(registration_date, '%M %d, %Y')";
-        $sql .= " AS regdat FROM users WHERE user_level != 1 and status = 1 ORDER BY registration_date ASC";
+        $sql .= " AS regdat FROM users WHERE user_level != 1 and status = 1 ORDER BY registration_date DESC";
         $sql .= " LIMIT :start, :limitPerPage";
         $this->db->query($sql);
         $this->db->bind(':start', $start_from);
@@ -47,20 +47,43 @@ class Admin
 
     public function getProducts()
     {
-        $this->db->query('SELECT * FROM products WHERE status = 1');
+        $this->db->query('SELECT * FROM products WHERE status = 1 ORDER BY productId DESC ');
         return $this->db->resultSet();
     }
 
     public function getProductsLimit($start_from, $limitPerPage)
     {
 
-        $this->db->query('SELECT * FROM products WHERE status = 1 LIMIT :start, :limitPerPage ');
+        $this->db->query('SELECT * FROM products WHERE status = 1 ORDER BY productId DESC LIMIT :start, :limitPerPage ');
         $this->db->bind(':start', $start_from);
         $this->db->bind(':limitPerPage', $limitPerPage);
         return $this->db->resultSet();
     }
 
-    public function getUserByEmail($email)
+    public function getProductOrderPrice($filter)
+    {
+        if ($filter == 'desc') {
+            $this->db->query('SELECT * FROM products WHERE status = 1 ORDER BY price DESC');
+        } else {
+            $this->db->query('SELECT * FROM products WHERE status = 1 ORDER BY price ASC ');
+        }
+        return $this->db->resultSet();
+    }
+
+    public function getProductOrderPriceLimit($start_from, $limitPerPage, $filter)
+    {
+        if ($filter == 'desc') {
+            $this->db->query('SELECT * FROM products WHERE status = 1 ORDER BY price DESC LIMIT :start, :limitPerPage');
+        } else {
+            $this->db->query('SELECT * FROM products WHERE status = 1 ORDER BY price ASC LIMIT :start, :limitPerPage');
+        }
+        $this->db->bind(':start', $start_from);
+        $this->db->bind(':limitPerPage', $limitPerPage);
+        return $this->db->resultSet();
+    }
+
+    public
+    function getUserByEmail($email)
     {
         $this->db->query('SELECT * FROM users where email = :email');
         $this->db->bind(':email', $email);
@@ -72,21 +95,24 @@ class Admin
         }
     }
 
-    public function getUserById($id)
+    public
+    function getUserById($id)
     {
         $this->db->query('SELECT * FROM users where userid = :id');
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
 
-    public function getProductById($id)
+    public
+    function getProductById($id)
     {
         $this->db->query('SELECT * FROM products where productId = :id');
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
 
-    public function addUser($data)
+    public
+    function addUser($data)
     {
 
         $sql = "INSERT INTO users (first_name, last_name, email, password, registration_date, user_level) values (:firstname, :lastname, :email, :password, NOW(), :user_level);";
@@ -106,14 +132,14 @@ class Admin
     }
 
 
-    public function editUser($data)
+    public
+    function editUser($data)
     {
-        $sql = "UPDATE users SET first_name = :firstname, last_name = :lastname ,password = :password ,user_level = :user_level WHERE userId = :userId";
+        $sql = "UPDATE users SET first_name = :firstname, last_name = :lastname ,user_level = :user_level WHERE userId = :userId";
         $this->db->query($sql);
         $this->db->bind(':firstname', $data['firstname']);
         $this->db->bind(':lastname', $data['lastname']);
         $this->db->bind(':userId', $data['userId']);
-        $this->db->bind(':password', $data['password']);
         $this->db->bind(':user_level', $data['privilege']);
         // Execute
 
@@ -124,7 +150,8 @@ class Admin
         }
     }
 
-    public function editProduct($data)
+    public
+    function editProduct($data)
     {
 //        echo '<pre>',
 //        var_dump($data),
@@ -146,7 +173,8 @@ class Admin
         }
     }
 
-    public function deleteUser($idUser)
+    public
+    function deleteUser($idUser)
     {
 
         $sql = "UPDATE users SET status = :status WHERE userId = :userId";
@@ -161,7 +189,8 @@ class Admin
         }
     }
 
-    public function deleteProduct($idProduct)
+    public
+    function deleteProduct($idProduct)
     {
 
         $sql = "UPDATE products SET status = :status WHERE productId = :productId";
@@ -176,7 +205,8 @@ class Admin
         }
     }
 
-    public function addProduct($data)
+    public
+    function addProduct($data)
     {
 
         $sql = "INSERT INTO products (productName, productImage, price) values (:productName, :productImage, :price)";

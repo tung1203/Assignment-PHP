@@ -156,7 +156,7 @@
             </li>
             <li>
                 <a href="">
-                    Điện Thoại - Máy Tính Bảng
+                    Máy Ảnh - Máy Quay Phim
                 </a>
             </li>
         </ul>
@@ -177,7 +177,7 @@
                                     <a href="">Máy Ảnh - Máy Quay Phim</a>
                                 </div>
                                 <div class="panel__category-item panel__category-child">
-                                    <a href="">
+                                    <a href="">Máy ảnh
                                         Máy ảnh
                                         <span>(570)</span>
                                     </a>
@@ -323,15 +323,15 @@
                         <div class="product">
                             <a href="">
                                 <div class="product__image">
-                                    <img src="<?php echo $product->productimage ?>" alt="">
+                                    <img src="<?php echo URLROOT;?>/<?php echo $product->productimage ?>" alt="">
                                 </div>
                                 <div class="product__option">
                                     <ul>
                                         <li class="active">
-                                            <img src="img/dt1small.jpg" alt="">
+                                            <img src="<?php echo URLROOT;?>/img/dt1small.jpg" alt="">
                                         </li>
                                         <li>
-                                            <img src="img/dt1small1.jpg" alt="">
+                                            <img src="<?php echo URLROOT;?>/img/dt1small1.jpg" alt="">
                                         </li>
                                     </ul>
                                 </div>
@@ -341,7 +341,7 @@
                                 </div>
                                 <span class="product__sale">
                                                     <span class="product__sale-final">
-                                                        <?php echo number_format($product->price); ?>
+                                                        <?php echo number_format($product->price); ?>đ
                                                         <span class="product__sale-percent">
                                                             -10%
                                                         </span>

@@ -13,7 +13,6 @@ class Core
 
     public function __construct()
     {
-
         $url = $this->getUrl();
 
         if (isset($url[0]) && !is_numeric($url[0])) {

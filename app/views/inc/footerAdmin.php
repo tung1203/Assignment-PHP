@@ -15,6 +15,7 @@
 <!-- Page level custom scripts -->
 <script src="<?php echo URLROOT; ?>/js/demo/chart-area-demo.js"></script>
 <script src="<?php echo URLROOT; ?>/js/demo/chart-pie-demo.js"></script>
+<script src="<?php echo URLROOT; ?>/js/main.js"></script>
 
 </body>
 
